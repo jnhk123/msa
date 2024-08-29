@@ -1,27 +1,22 @@
 package com.bmtsys.orderservice;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
 @RequestMapping("/orders")
+@AllArgsConstructor
 public class OrderController {
 
-    @Autowired
-    private WebClient.Builder webClientBuilder;
+    private final UserServiceClient userServiceClient;
 
     @GetMapping("/{orderId}")
     public String getOrderById(@PathVariable Long orderId) {
-        String user = webClientBuilder.build()
-                .get()
-                .uri("http://user-service/users/1")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+
+        String user = userServiceClient.getUserById(1L);
 
         return "Order ID: " + orderId + ", User: " + user;
     }
