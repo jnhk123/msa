@@ -12,14 +12,14 @@ spring:
           predicates:
             - Path=/users/**
           filters:
-            - StripPrefix=1
+            - RewritePath=/users/(?<segment>.*), /users/${segment}
 
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/orders/**
           filters:
-            - StripPrefix=1
+            - RewritePath=/orders/(?<segment>.*), /orders/${segment}
 
 eureka:
   client:

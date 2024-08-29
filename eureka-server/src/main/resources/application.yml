@@ -11,7 +11,6 @@ eureka:
     eviction-interval-timer-in-ms: 60000
     renewal-percent-threshold: 0.85
 
-
 spring:
   application:
     name: eureka-server
