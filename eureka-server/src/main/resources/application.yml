@@ -7,6 +7,8 @@ eureka:
     lease-expiration-duration-in-seconds: 90
   client:
     registry-fetch-interval-seconds: 30
+    registerWithEureka: false
+    fetchRegistry: false
   server:
     eviction-interval-timer-in-ms: 60000
     renewal-percent-threshold: 0.85

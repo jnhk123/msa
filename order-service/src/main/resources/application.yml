@@ -9,3 +9,35 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 500ms
+
+logging:
+  level:
+    io.github.resilience4j: DEBUG
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*" # 테스트를 위해 actuator 전체 노출
+
+  health:
+    circuitbreakers:
+      enabled: true # circuitbreakers 정보 노출

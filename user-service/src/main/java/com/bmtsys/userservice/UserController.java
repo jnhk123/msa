@@ -12,6 +12,9 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
+
+    private int cnt = 0;
+
     private Map<Long, String> users = new HashMap<>() {{
         put(1L, "John Doe");
         put(2L, "Jane Doe");
@@ -19,7 +22,12 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public String getUserById(@PathVariable Long userId) {
-        return users.getOrDefault(userId, "User not found");
+        if(cnt++ % 3 == 0) {
+            return users.getOrDefault(userId, "User not found");
+        } else {
+            throw new NullPointerException("test");
+        }
+
     }
 
 }
